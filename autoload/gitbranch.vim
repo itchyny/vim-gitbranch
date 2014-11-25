@@ -2,14 +2,17 @@
 " Filename: autoload/gitbranch.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2014/05/09 13:05:42.
+" Last Change: 2014/11/25 08:23:22.
 " =============================================================================
 
 let s:save_cpo = &cpo
 set cpo&vim
 
 function! gitbranch#name()
-  if has_key(b:, 'gitbranch_path')
+  if get(b:, 'gitbranch_pwd', '') !=# expand('%:p:h') || !has_key(b:, 'gitbranch_path')
+    call gitbranch#detect(expand('%:p:h'))
+  endif
+  if has_key(b:, 'gitbranch_path') && filereadable(b:gitbranch_path)
     let branch = get(readfile(b:gitbranch_path), 0, '')
     if branch =~# '^ref: '
       return substitute(branch, '^ref: \%(refs/\%(heads/\|remotes/\|tags/\)\=\)\=', '', '')
@@ -37,6 +40,7 @@ endfunction
 
 function! gitbranch#detect(path)
   unlet! b:gitbranch_path
+  let b:gitbranch_pwd = expand('%:p:h')
   let dir = gitbranch#dir(a:path)
   if dir != ''
     let path = dir . '/HEAD'
