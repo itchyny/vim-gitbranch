@@ -2,8 +2,13 @@
 " Filename: plugin/gitbranch.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2014/04/27 13:18:26.
+" Last Change: 2014/12/14 14:23:30.
 " =============================================================================
+
+if exists('g:loaded_gitbranch') || v:version < 700
+  finish
+endif
+let g:loaded_gitbranch = 1
 
 let s:save_cpo = &cpo
 set cpo&vim
