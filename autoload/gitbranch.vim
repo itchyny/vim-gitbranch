@@ -2,13 +2,13 @@
 " Filename: autoload/gitbranch.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2014/11/25 08:23:22.
+" Last Change: 2014/12/17 00:18:50.
 " =============================================================================
 
 let s:save_cpo = &cpo
 set cpo&vim
 
-function! gitbranch#name()
+function! gitbranch#name() abort
   if get(b:, 'gitbranch_pwd', '') !=# expand('%:p:h') || !has_key(b:, 'gitbranch_path')
     call gitbranch#detect(expand('%:p:h'))
   endif
@@ -23,7 +23,7 @@ function! gitbranch#name()
   return ''
 endfunction
 
-function! gitbranch#dir(path)
+function! gitbranch#dir(path) abort
   let path = a:path
   let prev = ''
   while path != prev
@@ -38,7 +38,7 @@ function! gitbranch#dir(path)
   return ''
 endfunction
 
-function! gitbranch#detect(path)
+function! gitbranch#detect(path) abort
   unlet! b:gitbranch_path
   let b:gitbranch_pwd = expand('%:p:h')
   let dir = gitbranch#dir(a:path)
