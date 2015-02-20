@@ -2,7 +2,7 @@
 " Filename: autoload/gitbranch.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2015/02/01 23:49:33.
+" Last Change: 2015/02/20 21:00:53.
 " =============================================================================
 
 let s:save_cpo = &cpo
@@ -31,6 +31,11 @@ function! gitbranch#dir(path) abort
     let type = getftype(dir)
     if type ==# 'dir' && isdirectory(dir.'/objects') && isdirectory(dir.'/refs') && getfsize(dir.'/HEAD') > 10
       return dir
+    elseif type ==# 'file'
+      let reldir = get(readfile(dir), 0, '')
+      if reldir =~# '^gitdir: '
+        return simplify(path . '/' . reldir[8:])
+      endif
     endif
     let prev = path
     let path = fnamemodify(path, ':h')
