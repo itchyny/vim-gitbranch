@@ -2,7 +2,7 @@
 " Filename: autoload/gitbranch.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2015/02/20 21:00:53.
+" Last Change: 2015/02/26 00:34:03.
 " =============================================================================
 
 let s:save_cpo = &cpo
@@ -26,7 +26,7 @@ endfunction
 function! gitbranch#dir(path) abort
   let path = a:path
   let prev = ''
-  while path != prev
+  while path !=# prev
     let dir = path . '/.git'
     let type = getftype(dir)
     if type ==# 'dir' && isdirectory(dir.'/objects') && isdirectory(dir.'/refs') && getfsize(dir.'/HEAD') > 10
