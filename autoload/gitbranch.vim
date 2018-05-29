@@ -7,6 +7,7 @@
 
 let s:save_cpo = &cpo
 set cpo&vim
+let g:gitbranch_icon = get(g:, 'gitbranch_icon', '↳')
 
 function! gitbranch#name() abort
   if get(b:, 'gitbranch_pwd', '') !=# expand('%:p:h') || !has_key(b:, 'gitbranch_path')
@@ -21,6 +22,11 @@ function! gitbranch#name() abort
     endif
   endif
   return ''
+endfunction
+
+function! gitbranch#icon_and_name() abort
+	let l:bname = gitbranch#name()
+	return l:bname != '' ? g:gitbranch_icon . ' ' . l:bname : ''
 endfunction
 
 function! gitbranch#dir(path) abort
