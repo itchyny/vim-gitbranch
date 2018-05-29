@@ -19,6 +19,14 @@ let g:lightline = {
       \ },
       \ }
 ```
+
+Also useful is `gitbranch#icon_and_name`, which will return the branch name prepended with a customizable icon (`↳` by default). This function helps maximize compatibility with [lightline.vim](https://github.com/itchyny/lightline.vim) as `component_function` can be used (instead of `component`), which prevents separators from being drawn when the `component_function` is empty (*e.g.*, there is no git repository).
+
+You can set a custom icon to be used in conjuction with `gitbranch#icon_and_name`:
+```vim
+let g:gitbranch_icon = '↝'
+```
+
 See the [README.md of lightline](https://github.com/itchyny/lightline.vim) for further details.
 
 ## Installation
