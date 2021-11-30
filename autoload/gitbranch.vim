@@ -35,7 +35,7 @@ function! gitbranch#dir(path) abort
     elseif type ==# 'file'
       let reldir = get(readfile(dir), 0, '')
       if reldir =~# '^gitdir: '
-        return simplify(path . '/' . reldir[8:])
+        return simplify(reldir[8:])
       endif
     elseif git_modules && isdirectory(path.'/objects') && isdirectory(path.'/refs') && getfsize(path.'/HEAD') > 10
       return path
